@@ -1,0 +1,53 @@
+.cbcontainer {
+	display: flex;
+}
+
+.cbox {
+	height: 0px;
+	width: 0px;
+	cursor: pointer;
+	opacity: 0;
+}
+
+.cbcustom {
+	align-self: center;
+	height: 17px;
+	width: 17px;
+	top: 0;
+	left: 0;
+	margin-right: 5px;
+	border-radius: 2px;
+	border-width: 2px;
+	border-style: solid;
+	border-color: #979797;
+	transition: 0.1s ease-in;
+}
+
+.cbcustom:after {
+	color: #35373d;
+	content: '';
+	display: none;
+	position: relative;
+	left: 4.2px;
+	top: 1.8px;
+	width: 5px;
+	height: 8px;
+
+	border-radius: 1px;
+	border: solid #35373d;
+	border-width: 0 3px 3px 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(40deg);
+}
+
+.cbox:checked ~ .cbcustom:after {
+	display: block;
+}
+
+.cbox:checked ~ .cbcustom {
+	background-color: #43c743;
+	border-color: #43c743;
+	display: block;
+	transition: 0.1s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+}
