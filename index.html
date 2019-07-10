@@ -38,22 +38,38 @@
 					id="bitfield"
 					class="input"
 					type="text"
+					placeholder="0"
 					value="0"
 					maxlength="10"
 					onchange="fixNumber(this)"
 					oninput="handleTextChange(this)"
 				/>
-				<input class="button1" type="button" value="Copy" onclick="copy()" />
 				<input class="button1" type="button" value="Reset/Select All" onclick="maxmin()" />
+				<input class="button1" type="button" value="Copy" onclick="copy()" />
 			</div>
 			<div id="invite" class="content">
 				<label for="id">Client ID</label>
-				<input id="id" class="input" type="text" value="11111111" maxlength="8" oninput="handleTextChange(this)" />
+				<input
+					id="id"
+					class="input"
+					type="text"
+					placeholder="00000000000000"
+					maxlength="18"
+					oninput="handleTextChange(this)"
+				/>
+				<label for="redirect">Redirect URI</label>
+				<input id="redirect" class="input" type="text" placeholder="optional" />
+				<label for="scope">Scopes</label>
+				<input id="scope" class="input" type="text" placeholder="bot" />
+				<label class="label cbcontainer">
+					<input id="code" class="cbox" type="checkbox" /><span class="cbcustom"></span>
+					Requires Code
+				</label>
 				<input class="button1" type="button" value="Use Invite" onclick="useInvite()" />
 			</div>
 		</main>
 		<footer>
-			<p id="copyright" class="content flex">© {year} Bitler#1149 - this tool is unofficial</p>
+			<p id="copyright" class="content">© {year} Bitler#1149 - this tool is unofficial</p>
 		</footer>
 	</body>
 </html>

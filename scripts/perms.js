@@ -15,9 +15,12 @@ function render() {
 		else if (permsVoice.includes(e)) document.getElementById('voice').innerHTML += n;
 		else document.getElementById('general').innerHTML += n;
 	});
-	document.getElementById('copyright').innerHTML = document
-		.getElementById('copyright')
-		.innerHTML.replace('{year}', new Date().getFullYear());
+	(function setDate() {
+		document.getElementById('copyright').innerHTML = document
+			.getElementById('copyright')
+			.innerHTML.replace('{year}', new Date().getFullYear());
+	})();
+	setInterval(setDate(), 60000);
 }
 
 function handleCheckBoxChange(e) {
@@ -29,8 +32,14 @@ function handleTextChange(e) {
 	var val = e.value;
 	if (/[^\d]/g.test(val)) return (e.value = val.replace(/[^\d]+/g, ''));
 	if (e.id == 'id') {
-		if (val.length > 8) {
-			e.value = val.substring(0, 8);
+		document.getElementById('id').classList.remove('input__incorect');
+		document.getElementById('id').classList.remove('input__corect');
+		if (val.length == 18) {
+			document.getElementById('id').classList.remove('input__incorect');
+			document.getElementById('id').classList.add('input__corect');
+		}
+		if (val.length > 18) {
+			e.value = val.substring(0, 18);
 		}
 		return;
 	}
@@ -51,14 +60,21 @@ function copy() {
 }
 
 function useInvite() {
-	window.open(
-		'https://discordapp.com/api/oauth2/authorize?client_id=' +
-			document.getElementById('id').value +
-			'&permissions=' +
-			document.getElementById('bitfield').value +
-			'&scope=bot',
-		'_blank'
-	);
+	var id = document.getElementById('id');
+	if (id.value.length < 18) {
+		id.select();
+		document.getElementById('id').classList.add('input__incorect');
+		return;
+	}
+	var bitfield = document.getElementById('bitfield').value;
+	var code = document.getElementById('code').value;
+	var scope = document.getElementById('scope').value;
+	var redirect = document.getElementById('redirect').value;
+	var invite = 'https://discordapp.com/api/oauth2/authorize?client_id=' + id.value + '&permissions=' + bitfield;
+	invite += scope ? '&scope=' + scope : '&scope=bot';
+	if (redirect) invite += '&redirect_uri=' + redirect;
+	if (code) invite += '&response_type=code';
+	window.open(invite, '_blank');
 }
 
 function fixNumber(e) {
@@ -66,11 +82,11 @@ function fixNumber(e) {
 }
 
 function maxmin() {
-	document.getElementById('bitfield').value = permsAll.some(function(e) {
+	var someChecked = permsAll.some(function(e) {
 		return !document.getElementById(e).checked;
-	})
-		? '2146958847'
-		: '0';
+	});
+	if (someChecked) document.getElementById('bitfield').value = '2146958847';
+	else document.getElementById('bitfield').value = '0';
 	handleTextChange(document.getElementById('bitfield'));
 }
 
@@ -86,16 +102,15 @@ function selectGroup(htmlElem) {
 			arr = permsGeneral;
 			break;
 	}
-	if (
-		arr.every(function(e) {
-			return document.getElementById(e).checked;
-		})
-	) {
+	var checked = arr.every(function(e) {
+		return document.getElementById(e).checked;
+	});
+	if (checked)
 		arr.forEach(function(e) {
 			document.getElementById(e).checked = false;
 			handleCheckBoxChange(document.getElementById(e));
 		});
-	} else
+	else
 		arr.forEach(function(e) {
 			if (document.getElementById(e).checked) return;
 			document.getElementById(e).checked = true;

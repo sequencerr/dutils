@@ -20,7 +20,7 @@
 	border-width: 2px;
 	border-style: solid;
 	border-color: #979797;
-	transition: 0.1s ease-in;
+	transition: 0.1s cubic-bezier(0.4, 0, 1, 1);
 }
 
 .cbcustom:after {
@@ -33,7 +33,7 @@
 	width: 5px;
 	height: 8px;
 
-	border-radius: 1px;
+	border-radius: 0.1px;
 	border: solid #35373d;
 	border-width: 0 3px 3px 0;
 	-webkit-transform: rotate(45deg);
@@ -49,5 +49,5 @@
 	background-color: #43c743;
 	border-color: #43c743;
 	display: block;
-	transition: 0.1s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+	transition: 0.2s cubic-bezier(0.4, 0, 1, 1);
 }
