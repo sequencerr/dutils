@@ -153,6 +153,11 @@ footer {
 	transition: 0.2s ease-in;
 }
 
+.button1:active {
+	position: relative;
+	top: 2px;
+}
+
 .button2 {
 	font-size: 23px;
 	color: #6393ec;
