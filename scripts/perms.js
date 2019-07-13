@@ -1,28 +1,3 @@
-function render() {
-	permsAll.forEach(function(e) {
-		var n =
-			'<label class="label cbcontainer"><input class="cbox" type="checkbox" id="' +
-			e +
-			'" onchange="handleCheckBoxChange(this)"/><span class="cbcustom"></span>' +
-			e
-				.split('_')
-				.map(function(e) {
-					return e[0] + e.slice(1).toLowerCase();
-				})
-				.join(' ') +
-			'</label>';
-		if (permsText.includes(e)) document.getElementById('text').innerHTML += n;
-		else if (permsVoice.includes(e)) document.getElementById('voice').innerHTML += n;
-		else document.getElementById('general').innerHTML += n;
-	});
-	(function setDate() {
-		document.getElementById('copyright').innerHTML = document
-			.getElementById('copyright')
-			.innerHTML.replace('{year}', new Date().getFullYear());
-	})();
-	setInterval(setDate(), 60000);
-}
-
 function handleCheckBoxChange(e) {
 	var val = +document.getElementById('bitfield').value;
 	document.getElementById('bitfield').value = e.checked ? val + permsBitwise[e.id] : val - permsBitwise[e.id];

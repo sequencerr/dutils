@@ -31,6 +31,24 @@
 				<div class="vflex" id="voice">
 					<input class="button2" type="button" value="Voice" onclick="selectGroup(this)" />
 				</div>
+				<script>
+					permsAll.forEach(function(e) {
+						var n =
+							'<label class="label cbcontainer"><input class="cbox" type="checkbox" id="' +
+							e +
+							'" onchange="handleCheckBoxChange(this)"/><span class="cbcustom"></span>' +
+							e
+								.split('_')
+								.map(function(e) {
+									return e[0] + e.slice(1).toLowerCase();
+								})
+								.join(' ') +
+							'</label>';
+						if (permsText.includes(e)) document.getElementById('text').innerHTML += n;
+						else if (permsVoice.includes(e)) document.getElementById('voice').innerHTML += n;
+						else document.getElementById('general').innerHTML += n;
+					});
+				</script>
 			</div>
 			<div id="perms" class="content">
 				<label for="bitfield">Permissions</label>
@@ -69,7 +87,13 @@
 			</div>
 		</main>
 		<footer>
-			<p id="copyright" class="content">© {year} Bitler#1149 - this tool is unofficial</p>
+			<p id="copyright" class="content">
+				©
+				<script>
+					document.write(new Date().getFullYear());
+				</script>
+				Bitler#1149 - this tool is unofficial
+			</p>
 		</footer>
 	</body>
 </html>
